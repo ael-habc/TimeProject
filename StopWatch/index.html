@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+</head>
+<body>
+    <h1>Stop Watch</h1>
+    <button id="start" >Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+    <p id="time">00:00:00</p>
+    <script>
+        // let start = document.getElementById('start');
+        // let stop = document.getElementById('stop');
+        // let reset = document.getElementById('reset');
+        // let time = document.getElementById('time');
+        // let seconds = 0;
+        // let minutes = 0;
+        // let hours = 0;
+        // let t;
+        // function add() {
+        //     seconds++;
+        //     if (seconds >= 60) {
+        //         seconds = 0;
+        //         minutes++;
+        //         if (minutes >= 60) {
+        //             minutes = 0;
+        //             hours++;
+        //         }
+        //     }
+        //     time.innerHTML = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+        //     timer();
+        // }
+        // function timer() {
+        //     t = setTimeout(add, 1000);
+        // }
+        // start.onclick = timer;
+        // stop.onclick = function () {
+        //     clearTimeout(t);
+        // }
+        // reset.onclick = function () {
+        //     time.innerHTML = "00:00:00";
+        //     seconds = 0; minutes = 0; hours = 0;
+        // }
+       
+        
+        //Get All the data from the html
+        let start = document.getElementById("start")
+        let stop = document.getElementById("stop")
+        let reset = document.getElementById("reset")
+        let time = document.getElementById("time")
+
+        //declare the seconds,minutes,hours variables
+        let seconds = 0
+        let minutes = 0
+        let hours = 0
+        let t
+
+        function timer()
+        {
+            t = setTimeout(add , 1000)
+        }
+        
+        function add() {
+            
+            seconds++
+            if (seconds >= 10) {
+                seconds = 0
+                minutes++
+                if (minutes >= 2) {
+                    minutes = 0
+                    hours++
+                }
+            }
+
+            time.innerHTML = hours + ":" + minutes + ":" + seconds 
+            timer()
+        }
+        start.onclick  = function() {
+            timer()
+        }
+        stop.onclick = function() {
+            clearTimeout(t)
+        }
+        
+        
+        
+    </script>
+</body>
+</html>
