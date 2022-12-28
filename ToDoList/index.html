@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: sans-serif;
+        }
+        .main {
+            width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-size: 30px;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>ToDoList</h1>
+        <form>
+            <input type="text" name="task" placeholder="Enter a task">
+
+            <button type="submit" name="submit" onclick="console.log(this)">Add Task</button>
+        </form> 
+        
+        <div id="taskList">
+
+        </div>
+        
+     </div>
+    <script>
+        
+        //get the elements
+        const form = document.querySelector('form');
+        const input = document.querySelector('input');
+        const button = document.querySelector('button');
+        const taskList = document.querySelector('#taskList');
+        let count = 0
+        
+        //prevent the form from submitting if the input is empty
+        button.onclick = function(e) {
+            if(!input.value)
+                e.preventDefault();
+        }
+        //add event listener to the form
+        form.addEventListener('submit', function(e) {
+            //prevent the form from submitting
+            e.preventDefault();
+            
+            //create the task div
+            var d = document.createElement('div');
+
+            //create the delete button
+            var btn = document.createElement('button');
+
+            //create the checkbox
+            var check = document.createElement('input');
+
+            //create the task
+            let task = document.createElement('p');
+
+            //add attribute to the checkbox
+            check.setAttribute("type","checkbox")
+            check.setAttribute("id",`${count}`)
+            check.setAttribute("onchange","finshishTask(this)")
+            
+            //add attribute to the delete button
+            btn.innerHTML = 'Delete';
+            btn.setAttribute("onclick", "removeTask(this)");
+            
+            //add attribute to the task
+            task.setAttribute("style","display:inline-block");
+            task.setAttribute("id",`task${count++}`);
+            task.innerHTML = input.value;
+            
+            //add the elements to the div
+            d.appendChild(check)
+            d.appendChild(task);
+            d.appendChild(btn);
+
+            //add the div to the taskList
+            taskList.appendChild(d);
+
+            //clear the input
+            input.value = '';
+        });
+        function removeTask(e) {
+            // remove the parent of the button
+            e.parentNode.remove();
+        }
+        function finshishTask(e)
+        {
+            //get the task id
+            let i = e.parentNode.firstChild.id;
+            
+            //get the task
+            let p = document.getElementById(`task${i}`);
+
+            //check if the checkbox is checked
+            if(e.checked)
+                //add line-through to the task
+                p.style.textDecoration = "line-through";
+            else
+                //remove line-through from the task
+                p.style.textDecoration = "none";
+        }
+
+        
+        
+         
+        
+
+    </script>
+</body>
+</html>
