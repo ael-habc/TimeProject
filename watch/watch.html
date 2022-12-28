@@ -7,11 +7,29 @@
     <title>watch</title>
 </head>
 <body>
-    <p id="watch"></p>
-    <script>
+    <p id="watch" ></p>
+    <script> 
         let watch = document.getElementById("watch")
-        function time()
-        watch.innerHTML = new Date().toLocaleTimeString()
+        // watch.innerHTML = new Date().toLocaleTimeString()
+        function timer() {
+            let hours = new Date().getHours()
+            let minutes = new Date().getMinutes()
+            let seconds = new Date().getSeconds()
+            console.log(hours + " " + minutes + " " +secconds)
+            if (seconds < 9)
+                seconds = "0" + seconds
+            if (minutes < 9)
+                minutes = "0" + minutes
+            if (hours < 9)
+                hours = "0" + hours
+            
+            watch.innerHTML = hours + minutes + hours
+            
+        }
+        function ti()
+        {
+            setInterval(timer(),1000)
+        }
         
     </script>
 </body>

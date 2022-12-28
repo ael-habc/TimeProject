@@ -1,9 +1,20 @@
-function hh()
+function aime(arr)
 {
-    let i = 00000
-    if (i)
-        console.log("hi")
+    if (arr.length == 0)
+        return "personne n'aime ça"
+    else if (arr.length == 1)
+        return `${arr[0]} aime ça`
+    else if (arr.length == 2)
+        return `${arr[0]} et ${arr[1]} aiment ça`
+    else if (arr.length == 3)
+        return `${arr[0]},${arr[1]} et ${arr[2]} aiment ça`
     else
-        console.log("fed")
+        return `${arr[0]}, ${arr[1]} et ${arr.length - 2}  autres comme ça`
 }
-hh()
+
+// console.log(aime([]))
+
+function shiftZero(arr)
+{
+    
+}

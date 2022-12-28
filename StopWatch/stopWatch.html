@@ -18,47 +18,29 @@
         let start = document.getElementById("start")
         let reset = document.getElementById("reset")
         
-        let seconds = 0;
+        let seconds = 1;
         let minutes = 0
         let hours = 0;
         let t
-        // start.onclick = function(){
-        //     t = setInterval(timer ,1000);
-        // }
-        // stop.onclick = function(){
-        //     clearInterval(t)
-        // }
-        // reset.onclick = function(){
-        //     time.innerHTML = "00:00:00"
-        //     seconds = 0
-        //     minutes = 0
-        //     hours = 0
-        //     clearInterval(t)
-        // }
+        start.onclick = function(){
+            t = setInterval(timer ,1000);
+        }
+        stop.onclick = function(){
+            clearInterval(t)
+        }
+        reset.onclick = function(){
+            time.innerHTML = "00:00:00"
+            seconds = 0
+            minutes = 0
+            hours = 0
+            clearInterval(t)
+        }
          
-        // function timer()
-        // {
-            
-        //     seconds++
-        //     if (seconds >= 60)
-        //     {
-        //         minutes++
-        //         seconds = 0
-        //         if (minutes >= 60)
-        //         {
-        //             hours++
-        //             minutes = 0
-        //         }
-        //     }
-            
-        //     time.innerHTML = (hours ? (hours > 9) ? hours : "0" + hours : "00") + ":" + (minutes ? (minutes > 9) ? minutes : "0" + minutes : "00") + ":" + (seconds ? (seconds > 9) ? seconds : "0" + seconds : "00")
-        // }
-
-
         function timer()
         {
+            time.innerHTML = (hours ? (hours > 9) ? hours : "0" + hours : "00") + ":" + (minutes ? (minutes > 9) ? minutes : "0" + minutes : "00") + ":" + (seconds ? (seconds > 9) ? seconds : "0" + seconds : "00")
             seconds++
-            if (seconds >= 60)
+            if (seconds >= 10)
             {
                 minutes++
                 seconds = 0
@@ -68,10 +50,6 @@
                     minutes = 0
                 }
             }
-            time.innerHTML = hours + ":" + minutes + ":" + seconds
-        }
-        start.onclick = function(){
-            setInterval(timer,1000)
         }
     </script>
 </body>
