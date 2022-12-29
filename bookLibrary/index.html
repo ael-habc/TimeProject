@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css links -->
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap" rel="stylesheet">
+    <!-- fontawesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- bootstap Link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Book Library</title>
+
+    <!-- Css  -->
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: sans-serif;
+        }
+        .main {
+            width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .main > div {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-size: 30px;
+            color: rgb(57, 28, 28);
+            font-family: Rubik Bubbles;
+        }
+        input[type=text] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        button[type=submit] {
+            width: 15%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            /* background-color: #333; */
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+
+        @keyframes rotation {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(359deg);
+            }
+        }
+        
+        button:hover i {
+            color: #000;
+            animation: rotation 2s infinite linear;
+        }
+        #result {
+            
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            background-color: #fff;
+            color: #000;
+            cursor: pointer;
+        }
+        h2{
+            font-family: Prosto One;
+        }
+    </style>
+</head>
+<body>
+    <h1> Book Library</h1>
+    <div class="main">
+
+        <div>
+            <input type="text" name="bookName" placeholder="search for a Book" id="bookName">
+            <button type="submit" id="search" class="btn btn-success"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+    
+        <div>
+            <input type="text" name="addBook" placeholder="Add a book" id="addBook">
+            <button type="submit" id="add" class="btn btn-info"><i class="fa-solid fa-plus"></i></button>
+        </div>
+    
+        <div>
+            <input type="text" name="deleteName" placeholder="Delete a book" id="deleteBook">
+            <button type="submit" id="delete" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
+        </div>
+    
+        <h2>Result</h2>
+        <div>
+            <!-- <input type="text" name="result" placeholder="result" id="result"> -->
+            <div id="result"></div>
+        </div>
+        <button type="submit" id="reset" class="btn btn-warning"><i class="fa-solid fa-rotate"></i></button>
+    </div>
+    
+    <!-- javascript -->
+    <script>
+        // get all the elements
+        // Buttons
+        let search = document.getElementById("search");
+        let add = document.getElementById("add");
+        let deleteBook = document.getElementById("delete");
+        let reset = document.getElementById("reset");
+        // input
+        let result = document.getElementById("result");
+        let bookName = document.getElementById("bookName");
+        let addBook = document.getElementById("addBook");
+        let deleteName = document.getElementById("deleteBook");
+
+        // array of books
+        // let books = [
+        //     "The Alchemist",
+        //     "The Monk Who Sold His Ferrari",
+        //     "The Power of Your Subconscious Mind",
+        //     "The Secret",
+        //     "The Magic",
+        //     "The Power of Now",
+        //     "The 7 Habits of Highly Effective People",
+        //     "Think and Grow Rich",
+        //     "The 5 AM Club",
+        //     "The Intelligent Investor",
+        //     "atomic Habits",
+        //     "The 4-Hour Workweek",
+        //     "The 48 Laws of Power",
+        //     "The 7 Habits of Highly Effective People",
+        //     "The 5 Love Languages",
+        //     "The 5 Levels of Leadership",
+        //     "The 5 Dysfunctions of a Team",
+        //     "The 5 Choices: The Path to Extraordinary Productivity",
+        //     "The 5 Levels of Leadership",
+        //     "The 5 Love Languages",
+        //     "The 5 Second Rule",
+        //     "The 5 Dysfunctions of a Team",
+        //     "The 5 Choices: The Path to Extraordinary Productivity",
+        //     ]
+
+        let books = [
+            {
+                id:1,
+                name:"The Alchemist",
+                author:"Paulo Coelho",
+                price: 200,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:2,
+                name:"The Monk Who Sold His Ferrari",
+                author:"Robin Sharma",
+                price: 300,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:3,
+                name:"The Power of Your Subconscious Mind",
+                author:"Joseph Murphy",
+                price: 400,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:4,
+                name:"The Secret",
+                author:"Rhonda Byrne",
+                price: 500,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:5,
+                name:"The Magic",
+                author:"Rhonda Byrne",
+                price: 600,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:6,
+                name:"The Power of Now",
+                author :"Eckhart Tolle",
+                price: 700,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:7,
+                name:"The 7 Habits of Highly Effective People",
+                author:"Stephen R. Covey",
+                price: 800,
+                rating: 4.5,
+                category: "fiction"
+            },
+            {
+                id:8,
+                name:"Think and Grow Rich",
+                author:"Napoleon Hill",
+                price: 900,
+                rating: 4.5,
+                category: "fiction"
+            },
+
+        ]
+
+        // // search function
+        // search.addEventListener("click", function(e) {
+        //     if (!bookName.value)
+        //         return
+        //     let book = bookName.value;
+        //     let found = false;
+            
+        //     // for (let i = 0; i < books.length; i++) {
+        //     //     if (book == books[i]) {
+        //     //         found = true;
+        //     //         break;
+        //     //     }
+        //     // }
+        //     if (books.includes(book)) {
+        //         found = true;
+        //     }
+            
+        //     if (found) {
+        //         result.style.color = "green";
+        //         result.value = "Book Found";
+        //     } else {
+        //         result.style.color = "red";
+        //         result.value = "Book Not Found";
+        //     }
+        //     bookName.value = "";
+        // })
+
+        // // add function
+        // add.addEventListener("click", function() {
+        //     if (!addBook.value)
+        //         return
+        //     let book = addBook.value;
+            
+        //     if(!books.includes(book))
+        //     {
+        //         books.push(book);
+        //         result.style.color = "green";
+        //         result.value = "Book Added";
+        //     }
+        //     else
+        //     {
+
+        //         result.style.color = "red";
+        //         result.value = "Book already in the book list";
+        //     }
+            
+        //     console.log(books)
+        //     addBook.value = "";
+        // })
+
+        // // delete function
+        // deleteBook.addEventListener("click", function() {
+        //     if (!deleteBook.value)
+        //         return
+        //     let book = deleteName.value;
+        //     let found = false;
+        //     for (let i = 0; i < books.length; i++) {
+        //         if (book == books[i]) {
+        //             found = true;
+        //             books.splice(i, 1);
+        //             deleteName.value = "";
+        //             break;
+        //         }
+        //     }
+        //     if (found) {
+        //         result.style.color = "green";
+        //         result.value = "Book Deleted";
+        //     } else {
+        //         result.style.color = "red";
+        //         result.value = "Book Not Found";
+        //     }
+        // })
+        // reset.addEventListener("click",function(){
+        //     result.value = ""
+        // })
+
+    
+    </script>
+</body>
+</html>

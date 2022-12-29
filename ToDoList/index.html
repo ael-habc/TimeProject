@@ -30,6 +30,65 @@
             display: flex;
             justify-content: space-between;
         }
+        input[type=text] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        button[type=submit] {
+            width: 15%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+
+        #taskList {
+            margin-top: 20px;
+        }
+        #taskList div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        #taskList div {
+            border-bottom: none;
+        }
+        #taskList div button {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color:  #990000;
+            color: #fff;
+            cursor: pointer;
+        }
+        #taskList div button:hover {
+            background-color: #cc0000;
+        }
+        input[type=checkbox] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        #taskList p {
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        
+
     </style>
 </head>
 <body>
@@ -38,11 +97,11 @@
         <form>
             <input type="text" name="task" placeholder="Enter a task">
 
-            <button type="submit" name="submit" onclick="console.log(this)">Add Task</button>
+            <!-- <button type="submit" name="submit" onclick="console.log(this)">Add Task</button> -->
         </form> 
         
         <div id="taskList">
-
+            <!-- <div><input type="checkbox"><p style="display:inline-block">sdfdhfgds</p><button>Delete</button></div> -->
         </div>
         
      </div>
@@ -53,18 +112,19 @@
         const input = document.querySelector('input');
         const button = document.querySelector('button');
         const taskList = document.querySelector('#taskList');
-        let count = 0
+        let count = 0 
         
         //prevent the form from submitting if the input is empty
-        button.onclick = function(e) {
-            if(!input.value)
-                e.preventDefault();
-        }
+        // button.onclick = function(e) {
+        //     if(!input.value)
+        //         e.preventDefault();
+        // }
         //add event listener to the form
+
         form.addEventListener('submit', function(e) {
             //prevent the form from submitting
-            e.preventDefault();
-            
+            e.preventDefault(); 
+
             //create the task div
             var d = document.createElement('div');
 
@@ -102,10 +162,14 @@
             //clear the input
             input.value = '';
         });
+
+        //remove the task
         function removeTask(e) {
             // remove the parent of the button
             e.parentNode.remove();
         }
+
+        //finish the task
         function finshishTask(e)
         {
             //get the task id
@@ -116,18 +180,18 @@
 
             //check if the checkbox is checked
             if(e.checked)
+            {
                 //add line-through to the task
                 p.style.textDecoration = "line-through";
+                p.style.color = "#999";
+            }
             else
+            {
                 //remove line-through from the task
                 p.style.textDecoration = "none";
+                p.style.color = "#333";
+            }
         }
-
-        
-        
-         
-        
-
     </script>
 </body>
 </html>
