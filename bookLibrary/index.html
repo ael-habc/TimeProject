@@ -94,6 +94,14 @@
         h2{
             font-family: Prosto One;
         }
+        #res{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: #000 solid 1px;
+        }
     </style>
 </head>
 <body>
@@ -136,33 +144,11 @@
         let bookName = document.getElementById("bookName");
         let addBook = document.getElementById("addBook");
         let deleteName = document.getElementById("deleteBook");
-
-        // array of books
-        // let books = [
-        //     "The Alchemist",
-        //     "The Monk Who Sold His Ferrari",
-        //     "The Power of Your Subconscious Mind",
-        //     "The Secret",
-        //     "The Magic",
-        //     "The Power of Now",
-        //     "The 7 Habits of Highly Effective People",
-        //     "Think and Grow Rich",
-        //     "The 5 AM Club",
-        //     "The Intelligent Investor",
-        //     "atomic Habits",
-        //     "The 4-Hour Workweek",
-        //     "The 48 Laws of Power",
-        //     "The 7 Habits of Highly Effective People",
-        //     "The 5 Love Languages",
-        //     "The 5 Levels of Leadership",
-        //     "The 5 Dysfunctions of a Team",
-        //     "The 5 Choices: The Path to Extraordinary Productivity",
-        //     "The 5 Levels of Leadership",
-        //     "The 5 Love Languages",
-        //     "The 5 Second Rule",
-        //     "The 5 Dysfunctions of a Team",
-        //     "The 5 Choices: The Path to Extraordinary Productivity",
-        //     ]
+        let res = []
+        let d  = document.createElement('div')
+        d.setAttribute('id','res')
+        d.setAttribute('class','res')
+    
 
         let books = [
             {
@@ -229,9 +215,47 @@
                 rating: 4.5,
                 category: "fiction"
             },
-
         ]
-
+        // search function
+        search.addEventListener("click", function(e) {
+            if (!bookName.value)
+                return
+            let book = bookName.value;
+            let found = false;
+            for (i = 0; i < books.length; i++) {
+                if (book == books[i].author) {
+                    found = true;
+                    res.push(books[i]);
+                    
+                }
+                
+            }
+            if (found) {
+                for(i = 0;i < res.length; i++){
+                    var name = document.createElement("p");
+                    name.innerHTML = res[i].name;
+                    d.appendChild(name);
+                    var author = document.createElement("p");
+                    author.innerHTML = res[i].author;
+                    d.appendChild(author);
+                    var price = document.createElement("p");
+                    price.innerHTML = res[i].price;
+                    d.appendChild(price);
+                    var rating = document.createElement("p");
+                    rating.innerHTML = res[i].rating;
+                    d.appendChild(rating);
+                    var category = document.createElement("p");
+                    category.innerHTML = res[i].category;
+                    d.appendChild(category);
+                    
+                    result.appendChild(d);
+                }
+                
+            } else {
+                result.style.color = "red";
+                result.innerHTML = "Book Not Found";
+            }
+        })
         // // search function
         // search.addEventListener("click", function(e) {
         //     if (!bookName.value)
