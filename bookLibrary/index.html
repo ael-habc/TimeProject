@@ -94,7 +94,7 @@
         h2{
             font-family: Prosto One;
         }
-        #res{
+        #result{
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -102,6 +102,7 @@
             margin-bottom: 10px;
             border: #000 solid 1px;
         }
+        
     </style>
 </head>
 <body>
@@ -126,7 +127,23 @@
         <h2>Result</h2>
         <div>
             <!-- <input type="text" name="result" placeholder="result" id="result"> -->
-            <div id="result"></div>
+            <div id="result">
+                <!-- <div class="res">
+                    <p class="name">The Monk Who Sold His Ferrari</p>
+                    <p class="author">Robin Sharma</p>
+                    <p class="price">200</p>
+                    <p class="rating">4.5</p>
+                    <p class="category">fiction</p>
+                </div>
+
+                <div class="res">
+                    <p class="name">The Monk Who Sold His Ferrari</p>
+                    <p class="author">Robin Sharma</p>
+                    <p class="price">200</p>
+                    <p class="rating">4.5</p>
+                    <p class="category">fiction</p>
+                </div> -->
+            </div>
         </div>
         <button type="submit" id="reset" class="btn btn-warning"><i class="fa-solid fa-rotate"></i></button>
     </div>
@@ -233,22 +250,27 @@
             if (found) {
                 for(i = 0;i < res.length; i++){
                     var name = document.createElement("p");
+                    name.setAttribute("class","name")
                     name.innerHTML = res[i].name;
+                    console.log(res[i])
                     d.appendChild(name);
                     var author = document.createElement("p");
+                    author.setAttribute("class","author")
                     author.innerHTML = res[i].author;
                     d.appendChild(author);
                     var price = document.createElement("p");
+                    price.setAttribute("class","price")
                     price.innerHTML = res[i].price;
                     d.appendChild(price);
                     var rating = document.createElement("p");
+                    rating.setAttribute("class","rating")
                     rating.innerHTML = res[i].rating;
                     d.appendChild(rating);
                     var category = document.createElement("p");
+                    category.setAttribute("class","category")
                     category.innerHTML = res[i].category;
                     d.appendChild(category);
-                    
-                    result.appendChild(d);
+                    result.appendChild(d)
                 }
                 
             } else {
