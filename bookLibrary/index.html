@@ -102,6 +102,11 @@
             margin-bottom: 10px;
             border: #000 solid 1px;
         }
+        #resuld div {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            
+        }
         
     </style>
 </head>
@@ -126,7 +131,6 @@
     
         <h2>Result</h2>
         <div>
-            <!-- <input type="text" name="result" placeholder="result" id="result"> -->
             <div id="result">
                 <!-- <div class="res">
                     <p class="name">The Monk Who Sold His Ferrari</p>
@@ -162,9 +166,7 @@
         let addBook = document.getElementById("addBook");
         let deleteName = document.getElementById("deleteBook");
         let res = []
-        let d  = document.createElement('div')
-        d.setAttribute('id','res')
-        d.setAttribute('class','res')
+        
     
 
         let books = [
@@ -248,11 +250,26 @@
                 
             }
             if (found) {
+                // remove the children of result
+                let delchild = result.lastElementChild
+                if(delchild)
+                {
+                    console.log(delchild)
+                    while (delchild) {
+                        result.removeChild(delchild);
+                        delchild = result.lastChild;
+                    }
+                }
+                result.innerHTML = ""
+                result.style.color = "black";
                 for(i = 0;i < res.length; i++){
+                    let d  = document.createElement('div')
+                    d.setAttribute('id','res')
+                    d.setAttribute('class','res')
                     var name = document.createElement("p");
                     name.setAttribute("class","name")
                     name.innerHTML = res[i].name;
-                    console.log(res[i])
+                    // console.log(res[i])
                     d.appendChild(name);
                     var author = document.createElement("p");
                     author.setAttribute("class","author")
@@ -274,6 +291,8 @@
                 }
                 
             } else {
+                if (d)
+                    d.remove()
                 result.style.color = "red";
                 result.innerHTML = "Book Not Found";
             }
